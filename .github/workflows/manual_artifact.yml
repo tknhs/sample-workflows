@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 5
     outputs:
       sha: ${{ steps.commit-hash.outputs.sha }}
-      today: ${{ steps.date.outputs.date }}
+      today: ${{ steps.date.outputs.today }}
     steps:
       - name: Commit hash
         id: commit-hash
