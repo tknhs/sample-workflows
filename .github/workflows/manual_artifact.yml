@@ -54,14 +54,14 @@ jobs:
 
       - name: Output the input parameters
         run: |
-          echo "target     : ${{ github.event.inputs.target }}" >> /artifacts/inputs.txt
-          echo "skip       : ${{ github.event.inputs.skip }}" >> /artifacts/inputs.txt
-          echo "commit_hash: ${{ github.event.inputs.commit_hash }}" >> /artifacts/inputs.txt
-          echo "ref        : ${{ github.ref }}" >> /artifacts/inputs.txt
+          echo "target     : ${{ github.event.inputs.target }}" >> inputs.txt
+          echo "skip       : ${{ github.event.inputs.skip }}" >> inputs.txt
+          echo "commit_hash: ${{ github.event.inputs.commit_hash }}" >> inputs.txt
+          echo "ref        : ${{ github.ref }}" >> inputs.txt
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ github.event.inputs.target }} / ${{ github.event.inputs.skip }} / ${{ github.event.inputs.commit_hash }}
-          path: /artifacts/inputs.txt
+          path: inputs.txt
           retention-days: 30
