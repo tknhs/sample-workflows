@@ -18,7 +18,7 @@ on:
 
 jobs:
   prepare:
-    name: Setup
+    name: Setup Variables
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
@@ -38,14 +38,11 @@ jobs:
       - name: Current date
         id: date
         run: echo "::set-output name=today::$(TZ=Asia/Tokyo date +'%Y%m%d')"
-        
-      - name: Create artifact files
-        run: |
-          mkdir artifacts
-          touch artifacts/tmp.txt
 
   build:
+    name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     needs: [prepare]
     steps:
       - uses: actions/checkout@v2
@@ -56,6 +53,17 @@ jobs:
         run: |
           echo ${{ needs.prepare.outputs.sha }}
           echo $(git rev-parse HEAD)
+
+  upload-artifacts:
+    name: Upload Artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [prepare, build]
+    steps:
+      - name: Create artifact files
+        run: |
+          mkdir artifacts
+          touch artifacts/tmp.txt
 
       - name: Upload artifact; inputs.target
         uses: actions/upload-artifact@v2
