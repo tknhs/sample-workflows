@@ -54,6 +54,9 @@ jobs:
           echo ${{ needs.prepare.outputs.sha }}
           echo $(git rev-parse HEAD)
 
+      - name: Cat readme
+        run: cat README.md
+
   upload-artifacts:
     name: Upload Artifacts
     runs-on: ubuntu-latest
