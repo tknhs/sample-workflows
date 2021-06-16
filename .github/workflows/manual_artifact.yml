@@ -18,14 +18,14 @@ on:
 
 jobs:
   prepare:
-    name: Setup Variables
+    name: Setup
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
       sha: ${{ steps.commit-hash.outputs.sha }}
       today: ${{ steps.date.outputs.date }}
     steps:
-      - name: Target Commit Hash
+      - name: Commit hash
         id: commit-hash
         run: |
           if [ "${{ github.event.inputs.commit_hash }}" == "" ]; then
@@ -38,6 +38,11 @@ jobs:
       - name: Current date
         id: date
         run: echo "::set-output name=today::$(TZ=Asia/Tokyo date +'%Y%m%d')"
+        
+      - name: Create artifact files
+        run: |
+          mkdir artifacts
+          touch artifacts/tmp.txt
 
   build:
     runs-on: ubuntu-latest
@@ -52,16 +57,30 @@ jobs:
           echo ${{ needs.prepare.outputs.sha }}
           echo $(git rev-parse HEAD)
 
-      - name: Output the input parameters
-        run: |
-          echo "target     : ${{ github.event.inputs.target }}" >> inputs.txt
-          echo "skip       : ${{ github.event.inputs.skip }}" >> inputs.txt
-          echo "commit_hash: ${{ github.event.inputs.commit_hash }}" >> inputs.txt
-          echo "ref        : ${{ github.ref }}" >> inputs.txt
-
-      - name: Upload artifact
+      - name: Upload artifact: inputs.target
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.event.inputs.target }},${{ github.event.inputs.skip }},${{ github.event.inputs.commit_hash }}
-          path: inputs.txt
+          name: inputs.target.${{ github.event.inputs.target }}
+          path: artifacts/tmp.txt
+          retention-days: 30
+
+      - name: Upload artifact: inputs.skip
+        uses: actions/upload-artifact@v2
+        with:
+          name: inputs.skip.${{ github.event.inputs.skip }}
+          path: artifacts/tmp.txt
+          retention-days: 30
+
+      - name: Upload artifact: inputs.commit_hash
+        uses: actions/upload-artifact@v2
+        with:
+          name: inputs.commit_hash.${{ github.event.inputs.commit_hash }}
+          path: artifacts/tmp.txt
+          retention-days: 30
+
+      - name: Upload artifact: github.ref
+        uses: actions/upload-artifact@v2
+        with:
+          name: ref.${{ github.ref }}
+          path: artifacts/tmp.txt
           retention-days: 30
