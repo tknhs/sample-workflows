@@ -68,27 +68,20 @@ jobs:
       - name: Upload artifact; inputs.target
         uses: actions/upload-artifact@v2
         with:
-          name: inputs.target.${{ github.event.inputs.target }}
+          name: inputs.target=${{ github.event.inputs.target }}
           path: artifacts/tmp.txt
           retention-days: 30
 
       - name: Upload artifact; inputs.skip
         uses: actions/upload-artifact@v2
         with:
-          name: inputs.skip.${{ github.event.inputs.skip }}
+          name: inputs.skip=${{ github.event.inputs.skip }}
           path: artifacts/tmp.txt
           retention-days: 30
 
       - name: Upload artifact; inputs.commit_hash
         uses: actions/upload-artifact@v2
         with:
-          name: inputs.commit_hash.${{ github.event.inputs.commit_hash }}
-          path: artifacts/tmp.txt
-          retention-days: 30
-
-      - name: Upload artifact; github.ref
-        uses: actions/upload-artifact@v2
-        with:
-          name: ref.${{ github.ref }}
+          name: inputs.commit_hash=${{ github.event.inputs.commit_hash }}
           path: artifacts/tmp.txt
           retention-days: 30
