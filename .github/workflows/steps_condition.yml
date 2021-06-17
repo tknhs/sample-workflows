@@ -6,7 +6,7 @@ on:
       target:
         description: 'Target.'
         required: true
-        default: ''
+        default: 'build'
       skip:
         description: 'Skip.'
         required: false
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     needs: [setup-variables, skip-job]
-    if: ${{ ! failure() }}
+    if: ${{ github.event.inputs.target == 'build' && ! failure() }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -69,4 +69,6 @@ jobs:
     needs: [build]
     steps:
       - name: Final step
-        run: echo ${{ needs.build.result }}
+        run: |
+          echo ${{ github.event.inputs.target }}
+          echo ${{ needs.build.result }}
