@@ -66,8 +66,8 @@ jobs:
     name: Final Job
     runs-on: ubuntu-latest
     timeout-minutes: 1
-    if: ! failure()
     needs: [setup-variables, skip-job, build]
+    if: ${{ ! failure() }}
     steps:
       - name: Final step
         run: |
