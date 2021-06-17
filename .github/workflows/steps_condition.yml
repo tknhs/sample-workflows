@@ -66,10 +66,12 @@ jobs:
     name: Final Job
     runs-on: ubuntu-latest
     timeout-minutes: 1
-    needs: [setup-variables, skip-job, build]
+    needs: [build]
     if: ${{ ! failure() }}
     steps:
       - name: Final step
         run: |
           echo ${{ github.event.inputs.target }}
           echo ${{ needs.build.result }}
+          echo ${{ failure() }}
+          echo ${{ success() }}
