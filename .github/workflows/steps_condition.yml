@@ -1,4 +1,4 @@
-name: Manual Artifact
+name: Step Condition
 
 on:
   workflow_dispatch:
