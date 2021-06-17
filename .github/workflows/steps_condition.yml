@@ -43,6 +43,7 @@ jobs:
     name: Skip Job
     runs-on: ubuntu-latest
     timeout-minutes: 1
+    needs: [setup-variables]
     if: ${{ github.event.inputs.skip == 'false' }}
     steps:
       - name: No skip
@@ -53,6 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 1
     needs: [setup-variables, skip-job]
+    if: ${{ ! failure() }}
     steps:
       - name: Cat readme
         run: cat README.md
