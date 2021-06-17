@@ -1,0 +1,67 @@
+name: Manual Artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target.'
+        required: true
+        default: ''
+      skip:
+        description: 'Skip.'
+        required: false
+        default: 'false'
+      commit_hash:
+        description: 'Commit hash.'
+        required: false
+        default: ''
+
+jobs:
+  setup-variables:
+    name: Setup Variables
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    outputs:
+      sha: ${{ steps.commit-hash.outputs.sha }}
+      today: ${{ steps.date.outputs.today }}
+    steps:
+      - name: Commit hash
+        id: commit-hash
+        run: |
+          if [ "${{ github.event.inputs.commit_hash }}" == "" ]; then
+            sha=${{ github.sha }}
+          else
+            sha=${{ github.event.inputs.commit_hash }}
+          fi
+          echo "::set-output name=sha::${sha}"
+
+      - name: Current date
+        id: date
+        run: echo "::set-output name=today::$(TZ=Asia/Tokyo date +'%Y%m%d')"
+        
+  skip-job:
+    name: Skip Job
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    if: ${{ github.event.inputs.skip == 'false' }}
+    steps:
+      - name: No skip
+        run: echo "no skip"
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    needs: [setup-variables, skip-job]
+    steps:
+      - name: Cat readme
+        run: cat README.md
+
+  final-job:
+    name: Final Job
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    needs: [build]
+    steps:
+      - name: Final step
+        run: echo ${{ needs.build.result }}
