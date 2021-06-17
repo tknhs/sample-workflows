@@ -56,6 +56,9 @@ jobs:
     needs: [setup-variables, skip-job]
     if: ${{ ! failure() }}
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
       - name: Cat readme
         run: cat README.md
 
