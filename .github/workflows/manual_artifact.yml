@@ -41,7 +41,7 @@ jobs:
         
       - name: Echo Env
         env:
-          DESC: ${{ github.workflow }} \#${{ github.run_number }}
+          DESC: "${{ github.workflow }} #${{ github.run_number }}"
         run: echo ${DESC}
 
   build:
