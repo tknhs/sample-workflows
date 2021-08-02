@@ -38,6 +38,11 @@ jobs:
       - name: Current date
         id: date
         run: echo "::set-output name=today::$(TZ=Asia/Tokyo date +'%Y%m%d')"
+        
+      - name: Echo Env
+        env:
+          DESC: ${{ github.workflow }} \#${{ github.run_number }}
+        run: echo ${DESC}
 
   build:
     name: Build
