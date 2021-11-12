@@ -15,10 +15,8 @@ on:
       skip:
         description: 'Skip.'
         required: false
-        type: choice
-        options:
-        - false
-        - true
+        type: boolean
+        description: 'Include 🎉🤣 emojis'
       commit_hash:
         description: 'Commit hash.'
         required: false
