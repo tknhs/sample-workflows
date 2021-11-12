@@ -6,7 +6,11 @@ on:
       target:
         description: 'Target.'
         required: true
-        default: ''
+        type: choice
+        options:
+        - A
+        - B
+        - C
       skip:
         description: 'Skip.'
         required: false
