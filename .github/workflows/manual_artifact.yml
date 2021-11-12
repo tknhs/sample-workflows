@@ -10,7 +10,10 @@ on:
       skip:
         description: 'Skip.'
         required: false
-        default: 'false'
+        type: choice
+        options:
+        - false
+        - true
       commit_hash:
         description: 'Commit hash.'
         required: false
