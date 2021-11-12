@@ -16,11 +16,12 @@ on:
         description: 'Skip.'
         required: false
         type: boolean
-        description: 'Include 🎉🤣 emojis'
       commit_hash:
         description: 'Commit hash.'
         required: false
         default: ''
+      environment:
+        type: environment
 
 jobs:
   prepare:
