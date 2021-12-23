@@ -106,11 +106,20 @@ jobs:
           path: artifacts/tmp.txt
           retention-days: 30
 
+  failure-job:
+    name: Failure Job
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [upload-artifacts]
+    steps:
+      - name: Failure
+        run: exit 1
+
   echo-ip:
     name: Echo IP
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    needs: [prepare, upload-artifacts]
+    needs: [prepare, failure-job]
     steps:
       - name: Echo IP
         run: echo ${{ needs.prepare.outputs.ipv4 }}
