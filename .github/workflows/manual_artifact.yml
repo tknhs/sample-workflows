@@ -120,6 +120,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [prepare, failure-job]
+    if: always()
     steps:
       - name: Echo IP
         run: echo ${{ needs.prepare.outputs.ipv4 }}
