@@ -59,7 +59,7 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "hello-world.zip"
+          artifacts: "hello-world/"
           generateReleaseNotes: true
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ needs.prepare.outputs.version }}
