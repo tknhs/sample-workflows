@@ -56,10 +56,12 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: hello-world
+          
+      - run: ls -alh
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "hello-world/"
+          artifacts: "*"
           generateReleaseNotes: true
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ needs.prepare.outputs.version }}
