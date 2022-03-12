@@ -39,7 +39,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Install Libs
-      run: mkdir dist && echo "data dist/main.txt" > dist/main/main.txt && echo "data dist/sub.txt" > dist/main/sub.txt
+      run: mkdir -p dist/main/ && echo "data dist/main.txt" > dist/main/main.txt && echo "data dist/sub.txt" > dist/main/sub.txt
 
     - name: Save Artifact
       uses: actions/upload-artifact@v2
