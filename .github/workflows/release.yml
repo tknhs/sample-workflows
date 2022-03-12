@@ -45,7 +45,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: hello-world
-        path: dist/main/
+        path: dist/
 
   release:
     if: github.event.inputs.mode == 'release'
@@ -58,10 +58,12 @@ jobs:
           name: hello-world
           
       - run: ls -alh
+      
+      - run: zip -r main.zip ./
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "*"
+          artifacts: "main.zip"
           generateReleaseNotes: true
           token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ needs.prepare.outputs.version }}
