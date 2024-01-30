@@ -1,7 +1,6 @@
 name: pull-request-merge
 on:
-  pull_request:
-    types: [closed]
+  push:
     branches:
       - main
 jobs:
