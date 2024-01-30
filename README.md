@@ -1,4 +1,4 @@
 # sample-workflows
 
-- Trial and error with workflows
-- see [.github](.github)
+- Trial and error with workflows.
+- see [.github](.github).
