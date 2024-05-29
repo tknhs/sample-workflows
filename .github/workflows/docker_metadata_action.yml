@@ -32,11 +32,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            let tags = ${{ steps.meta.outputs.tags }}.split('\n');
-            const output = `\n
-            tags
-            `
             await core.summary
               .addHeading('Image Tags')
-              .addRaw(output)
+              .addRaw(${{ steps.meta.outputs.tags }})
               .write()
