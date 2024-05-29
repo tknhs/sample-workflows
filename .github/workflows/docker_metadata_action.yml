@@ -40,5 +40,5 @@ jobs:
               .join('<br>');
             await core.summary
               .addHeading('Image Tags')
-              .addRaw(tags)
+              .addCodeBlock(tags)
               .write()
