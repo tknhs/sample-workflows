@@ -36,7 +36,7 @@ jobs:
           script: |
             var tags = `${{ steps.meta.outputs.tags }}`
               .split('\n')
-              .map((x) => '\`' + x + '\`'))
+              .map((x) => '\`' + x + '\`')
               .join('<br>');
             await core.summary
               .addHeading('Image Tags')
