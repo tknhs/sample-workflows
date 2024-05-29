@@ -20,3 +20,7 @@ jobs:
           tags: |
             type=sha,format=short,prefix=
             type=sha,format=long,prefix=
+      - 
+        name: Output tags
+        run: |
+          echo "tags: \`${{ steps.meta.outputs.tags }}\`" >> $GITHUB_STEP_SUMMARY
