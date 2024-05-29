@@ -33,9 +33,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             var tags = `${{ steps.meta.outputs.tags }}`;
-            tags="${tags//'%'/'%25'}"
-            tags="${tags//$'\n'/'%0A'}"
-            tags="${tags//$'\r'/'%0D'}"
+            tags = tags.replace(/'%'/, '%25');
+            tags = tags.replace(/$'\n'/, '%0A');
+            tags = tags.replace(/$'\r'/, '%0D');
             await core.summary
               .addHeading('Image Tags')
               .addRaw(tags)
