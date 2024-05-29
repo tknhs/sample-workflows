@@ -32,7 +32,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const tags = '${{ steps.meta.outputs.tags }}';
             await core.summary
               .addHeading('Image Tags')
-              .addRaw(${{ steps.meta.outputs.tags }})
+              .addRaw(tags)
               .write()
