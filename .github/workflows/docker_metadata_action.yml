@@ -38,5 +38,5 @@ jobs:
             await core.summary
               .addHeading('Image Tags')
               .addRaw(a)
-              .addRow(b)
+              .addRaw(b)
               .write()
