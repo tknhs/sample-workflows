@@ -1,0 +1,22 @@
+name: metadata
+
+on:
+  workflow_dispatch
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            name/app
+          tags: |
+            type=sha,format=short
+            type=sha,format=long
