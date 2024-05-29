@@ -1,7 +1,12 @@
 name: metadata
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'image tag.'
+        required: true
+        default: 'latest'
 
 jobs:
   docker:
@@ -20,6 +25,8 @@ jobs:
           tags: |
             type=sha,format=short,prefix=
             type=sha,format=long,prefix=
+            type=raw,value=${{ inputs.image_tag }}
+            type=raw,value=latest
       - 
         name: Output tags
         run: |
