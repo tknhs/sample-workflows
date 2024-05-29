@@ -28,14 +28,16 @@ jobs:
             type=raw,value=${{ inputs.image_tag }}
             type=raw,value=latest
 
+
+
       - uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            var tags = `${{ steps.meta.outputs.tags }}`;
-            tags = tags.replace(/%/, '%25');
-            tags = tags.replace(/\n/, '%0A');
-            tags = tags.replace(/\r/, '%0D');
+            var tags = `${{ steps.meta.outputs.tags }}`
+              .replace(/%/g, '%25')
+              .replace(/\n/g, '%0A')
+              .replace(/\r/g, '%0D');
             await core.summary
               .addHeading('Image Tags')
               .addRaw(tags)
