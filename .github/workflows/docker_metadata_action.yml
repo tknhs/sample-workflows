@@ -35,11 +35,8 @@ jobs:
             const tags = `${{ steps.meta.outputs.tags }}`;
             const a = tags.split('\n');
             const b = tags.split(' ');
-            const output = `
-            a
-            b
-            `;
             await core.summary
               .addHeading('Image Tags')
-              .addRaw(output)
+              .addRaw(a)
+              .addRow(b)
               .write()
